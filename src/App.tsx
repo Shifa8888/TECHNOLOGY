@@ -869,7 +869,7 @@ const HomePage: React.FC = () => {
         </div>
         
         <div className="absolute bottom-12 left-1/2 flex flex-col items-center">
-          <div className="text-[10px] tracking-widest text-white/40 mb-3">SCROLL TO EXPLORE</div>
+          {/* <div className="text-[10px] tracking-widest text-white/40 mb-3">SCROLL TO EXPLORE</div> */}
           <motion.div animate={{ y: [0, 12, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-px h-12 bg-gradient-to-b from-transparent via-white/60 to-transparent" />
         </div>
       </div>
