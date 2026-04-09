@@ -560,14 +560,8 @@ const LoginPage: React.FC = () => {
             </motion.button>
           </form>
 
-          <div className="text-center mt-8 text-xs text-zinc-500">
-            Protected by enterprise grade encryption 🔐
-          </div>
         </motion.div>
 
-        <div className="text-center mt-8 text-xs text-zinc-500">
-          Built as a fully functional demo experience
-        </div>
       </div>
     </div>
   );
@@ -1393,8 +1387,12 @@ const OrdersPage: React.FC = () => {
             <div className="text-6xl mb-6 opacity-40">📦</div>
             <div className="text-2xl text-white mb-2">No orders yet</div>
             <p className="text-zinc-500 max-w-xs mx-auto">When you complete your first purchase, it will show up here.</p>
-            <Link to="/shop" className="inline-block mt-8 text-sm border border-zinc-700 px-7 py-3.5 rounded-3xl">BROWSE PRODUCTS</Link>
-          </div>
+<Link 
+  to="/shop" 
+  className="inline-block mt-8 text-sm text-white border border-zinc-700 px-7 py-3.5 rounded-3xl hover:bg-white hover:text-black transition-colors"
+>
+  BROWSE PRODUCTS
+</Link>          </div>
         )}
       </div>
     </div>
@@ -1403,14 +1401,41 @@ const OrdersPage: React.FC = () => {
 
 const AboutPage: React.FC = () => (
   <div className="bg-zinc-950 text-white min-h-screen py-20">
-    <div className="max-w-4xl mx-auto px-6">
-      <div className="max-w-md">
-        <div className="font-mono text-xs text-violet-400 mb-4">EST 2021 • EARTH</div>
-        <h1 className="text-7xl font-black tracking-tighter leading-none">We are obsessed with the future of technology.</h1>
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <div className="font-mono text-xs text-violet-400 mb-4">EST 2021 • EARTH</div>
+          <h1 className="text-7xl font-black tracking-tighter leading-none">We are obsessed with the future of technology.</h1>
+        </div>
+        
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8"
+        >
+          <div className="text-cyan-400 text-sm font-medium tracking-widest mb-4">OUR MISSION</div>
+          <p className="text-zinc-300 text-lg leading-relaxed mb-6">
+            Bringing cutting-edge technology to enthusiasts and professionals worldwide. We believe everyone deserves access to premium tech that enhances their digital experience.
+          </p>
+          <div className="flex items-center gap-4">
+            <div className="flex-1 bg-zinc-950 border border-zinc-700 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-bold text-white">2021</div>
+              <div className="text-xs text-zinc-500 mt-1">Founded</div>
+            </div>
+            <div className="flex-1 bg-zinc-950 border border-zinc-700 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-bold text-white">15+</div>
+              <div className="text-xs text-zinc-500 mt-1">Countries</div>
+            </div>
+            <div className="flex-1 bg-zinc-950 border border-zinc-700 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-bold text-white">100+</div>
+              <div className="text-xs text-zinc-500 mt-1">Tech Brands</div>
+            </div>
+          </div>
+        </motion.div>
       </div>
       
       <div className="prose prose-invert mt-16 max-w-none text-lg">
-        <p className="text-xl text-zinc-400">TechSphere was founded with a simple mission: make premium technology accessible, exciting and easy to buy.</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-20">
           <div>
@@ -1428,12 +1453,114 @@ const AboutPage: React.FC = () => (
         </div>
       </div>
       
+      {/* Featured Stats Section */}
+      <div className="mt-32 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center"
+        >
+          <div className="text-5xl font-black text-cyan-400 mb-2">50K+</div>
+          <div className="text-zinc-400 text-sm">Happy Customers</div>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center"
+        >
+          <div className="text-5xl font-black text-violet-400 mb-2">500+</div>
+          <div className="text-zinc-400 text-sm">Premium Products</div>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center"
+        >
+          <div className="text-5xl font-black text-fuchsia-400 mb-2">24/7</div>
+          <div className="text-zinc-400 text-sm">Expert Support</div>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 text-center"
+        >
+          <div className="text-5xl font-black text-emerald-400 mb-2">99%</div>
+          <div className="text-zinc-400 text-sm">Satisfaction Rate</div>
+        </motion.div>
+      </div>
+
+      {/* Why Choose Us Section */}
+      <div className="mt-32">
+        <div className="text-center mb-16">
+          <div className="text-cyan-400 text-sm font-medium tracking-widest mb-3">WHY TECHSPHERE</div>
+          <h2 className="text-5xl font-bold tracking-tighter">Why Customers Choose Us</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -8 }}
+            className="bg-zinc-900 border border-zinc-800 hover:border-cyan-400/30 rounded-3xl p-8 transition-all duration-300"
+          >
+            <div className="text-5xl mb-6">🛡️</div>
+            <h3 className="text-2xl font-semibold text-white mb-4">Quality Guaranteed</h3>
+            <p className="text-zinc-400 leading-relaxed">
+              Every product undergoes rigorous quality testing. We partner only with certified manufacturers and provide comprehensive warranties on all items.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ y: -8 }}
+            className="bg-zinc-900 border border-zinc-800 hover:border-violet-400/30 rounded-3xl p-8 transition-all duration-300"
+          >
+            <div className="text-5xl mb-6">⚡</div>
+            <h3 className="text-2xl font-semibold text-white mb-4">Fast Delivery</h3>
+            <p className="text-zinc-400 leading-relaxed">
+              Express shipping worldwide with real-time tracking. Most orders ship within 24 hours. Free delivery on orders over $150.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -8 }}
+            className="bg-zinc-900 border border-zinc-800 hover:border-fuchsia-400/30 rounded-3xl p-8 transition-all duration-300"
+          >
+            <div className="text-5xl mb-6">💎</div>
+            <h3 className="text-2xl font-semibold text-white mb-4">Premium Selection</h3>
+            <p className="text-zinc-400 leading-relaxed">
+              Hand-picked products from top brands like Sony, Razer, Logitech, Apple, and Samsung. Only the best makes it to our store.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Brands We Carry */}
+      <div className="mt-32">
+        <div className="text-center mb-12">
+          <div className="text-violet-400 text-sm font-medium tracking-widest mb-3">TRUSTED BRANDS</div>
+          <h2 className="text-4xl font-bold tracking-tighter mb-8">Brands We Carry</h2>
+        </div>
+        <div className="flex flex-wrap justify-center gap-8 opacity-60">
+          {['SONY', 'RAZER', 'LOGITECH', 'APPLE', 'SAMSUNG', 'BOSE', 'NVIDIA', 'AMD'].map((brand, index) => (
+            <motion.div
+              key={brand}
+              whileHover={{ scale: 1.1, opacity: 1 }}
+              className="bg-zinc-900 border border-zinc-800 px-8 py-4 rounded-2xl text-zinc-400 font-semibold tracking-wider"
+            >
+              {brand}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+      
       <div className="h-px bg-white/10 my-20"></div>
       
       <div className="flex justify-center">
-        <div className="text-center text-xs max-w-xs text-zinc-500">
-          This is a fully interactive demonstration built with React, TypeScript, Tailwind and Framer Motion.
-        </div>
       </div>
     </div>
   </div>
