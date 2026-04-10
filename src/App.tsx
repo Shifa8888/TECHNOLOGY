@@ -738,89 +738,96 @@ const ProductModal: React.FC<{
   const { addToCart } = useCart();
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <div 
-            className="fixed inset-0 bg-black/80 backdrop-blur-xl z-[100]"
-            onClick={onClose}
-          />
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 40 }}
-            transition={{ type: "spring", bounce: 0.02, duration: 0.4 }}
-            className="fixed inset-0 z-[110] flex items-center justify-center p-6 pointer-events-none"
-          >
-            <div 
-              className="bg-zinc-900 max-w-2xl w-full rounded-3xl overflow-hidden pointer-events-auto border border-zinc-700"
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="flex flex-col md:flex-row">
-                <div className="md:w-5/12 bg-black p-8 relative">
-                  <img 
-                    src={product.image.replace('300', '600')} 
-                    alt={product.name} 
-                    className="w-full rounded-2xl shadow-2xl" 
-                  />
-                  <div className="absolute top-8 right-8 bg-emerald-400/90 text-emerald-950 text-xs font-bold px-4 py-1 rounded-3xl">IN STOCK</div>
-                </div>
-                
-                <div className="md:w-7/12 p-8 flex flex-col">
-                  <button onClick={onClose} className="absolute top-6 right-6 text-zinc-400 hover:text-white">
-                    <X size={24} />
-                  </button>
-                  
-                  <div className="uppercase text-xs tracking-[2px] text-cyan-400 mb-1">{product.category}</div>
-                  <h2 className="text-3xl font-semibold text-white leading-none mb-2">{product.name}</h2>
-                  
-                  <div className="flex items-center gap-4 mt-2 mb-6">
-                    <div className="flex">
-                      {Array(5).fill(0).map((_, i) => (
-                        <Star key={i} className="text-amber-400 w-4 h-4 fill-current" />
-                      ))}
-                    </div>
-                    <div className="text-sm text-zinc-400">{product.rating} • 241 reviews</div>
-                  </div>
-                  
-                  <div className="text-5xl font-semibold text-white mb-8">${product.price}</div>
-                  
-                  <p className="text-zinc-400 leading-relaxed text-[15px] mb-8 flex-1">
-                    {product.description} This product has been carefully selected from the world's best manufacturers. 2-year international warranty included.
-                  </p>
-                  
-                  <div className="flex gap-4 pt-6 border-t border-zinc-800">
-                    <button 
-                      onClick={() => {
-                        addToCart(product);
-                        onAddToCart(product);
-                        setTimeout(onClose, 700);
-                      }}
-                      className="flex-1 py-4 bg-white text-black font-semibold rounded-2xl active:scale-95 transition-transform flex items-center justify-center gap-2"
-                    >
-                      <ShoppingCart className="w-4 h-4" /> ADD TO CART
-                    </button>
-                    <button 
-                      onClick={onClose}
-                      className="flex-1 py-4 border border-zinc-700 text-white font-medium rounded-2xl"
-                    >
-                      MAYBE LATER
-                    </button>
-                  </div>
-                </div>
+<AnimatePresence>
+  {isOpen && (
+    <>
+      <div 
+        className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100]"
+        onClick={onClose}
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+        className="fixed inset-0 z-[110] flex items-center justify-center p-4 pointer-events-none"
+      >
+        <div 
+          className="bg-zinc-900 max-w-xl w-full rounded-[2rem] overflow-hidden pointer-events-auto border border-zinc-800 shadow-2xl overflow-y-auto max-h-[95vh]"
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="flex flex-col md:flex-row relative">
+            {/* Close Button - Moved for better accessibility */}
+            <button onClick={onClose} className="absolute top-4 right-4 z-10 text-zinc-400 hover:text-white bg-black/20 backdrop-blur-md p-2 rounded-full">
+              <X size={20} />
+            </button>
+
+            {/* Image Section - Compacted */}
+            <div className="md:w-5/12 bg-black p-6 flex items-center justify-center relative">
+              <img 
+                src={product.image.replace('300', '600')} 
+                alt={product.name} 
+                className="w-full h-auto object-contain rounded-xl shadow-xl max-h-[250px] md:max-h-none" 
+              />
+              <div className="absolute top-4 left-4 bg-emerald-400 text-emerald-950 text-[10px] font-black px-3 py-1 rounded-full">
+                IN STOCK
               </div>
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
+            
+            {/* Content Section - Compacted */}
+            <div className="md:w-7/12 p-6 flex flex-col">
+              <div className="uppercase text-[10px] tracking-widest text-cyan-400 mb-1">{product.category}</div>
+              <h2 className="text-2xl font-bold text-white leading-tight mb-1">{product.name}</h2>
+              
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex">
+                  {Array(5).fill(0).map((_, i) => (
+                    <Star key={i} className="text-amber-400 w-3 h-3 fill-current" />
+                  ))}
+                </div>
+                <div className="text-xs text-zinc-500">{product.rating} • 241 reviews</div>
+              </div>
+              
+              <div className="text-3xl font-bold text-white mb-4">${product.price}</div>
+              
+              <p className="text-zinc-400 leading-relaxed text-sm mb-6 flex-1">
+                {product.description.slice(0, 120)}... 2-year international warranty included.
+              </p>
+              
+              {/* Buttons Section - Responsive Grid */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-5 border-t border-zinc-800">
+                <button 
+                  onClick={() => {
+                    addToCart(product);
+                    onAddToCart(product);
+                    setTimeout(onClose, 700);
+                  }}
+                  className="flex-[2] py-3 bg-white text-black text-xs font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2"
+                >
+                  <ShoppingCart className="w-4 h-4" /> ADD TO CART
+                </button>
+                <button 
+                  onClick={onClose}
+                  className="flex-1 py-3 border border-zinc-800 text-zinc-400 text-xs font-medium rounded-xl hover:bg-zinc-800"
+                >
+                  LATER
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>  );
 };
 
 const HomePage: React.FC = () => {
   const { addToCart } = useCart();
   const [showToast, setShowToast] = useState(false);
   const [toastProduct, setToastProduct] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const featured = products.slice(0, 4);
@@ -830,6 +837,11 @@ const HomePage: React.FC = () => {
     setToastProduct(product.name);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2200);
+  };
+
+  const handleQuickView = (product: Product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
   };
 
   return (
@@ -920,32 +932,42 @@ const HomePage: React.FC = () => {
               key={product.id} 
               product={product} 
               onAddToCart={handleAddToCart}
-              onQuickView={() => {}} 
+              onQuickView={handleQuickView} 
             />
           ))}
         </div>
       </div>
+
+      <ProductModal 
+        product={selectedProduct} 
+        isOpen={showModal} 
+        onClose={() => setShowModal(false)}
+        onAddToCart={handleAddToCart}
+      />
 
       {/* TRUST BAR */}
       <div className="bg-zinc-900 py-8 border-t border-b border-zinc-800">
         <div className="max-w-6xl mx-auto px-6 flex flex-wrap justify-center items-center gap-x-16 gap-y-6 opacity-75 text-sm">
           <div className="flex items-center gap-4">
             <div className="text-emerald-400">✓</div>
-            <div>2 YEAR WARRANTY</div>
+            <div className="text-white">2 YEAR WARRANTY</div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="text-emerald-400">✓</div>
-            <div>FREE SHIPPING OVER $150</div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="text-emerald-400">✓</div>
-            <div>30 DAY RETURNS</div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="text-emerald-400">✓</div>
-            <div>SECURE CHECKOUT</div>
-          </div>
-        </div>
+<div className="space-y-2 text-white"> {/* Parent par text-white lagane se sab white ho jayega */}
+  <div className="flex items-center gap-4">
+    <div className="text-emerald-400">✓</div>
+    <div className="text-white">FREE SHIPPING OVER $150</div>
+  </div>
+  
+  <div className="flex items-center gap-4">
+    <div className="text-emerald-400">✓</div>
+    <div className="text-white">30 DAY RETURNS</div>
+  </div>
+  
+  <div className="flex items-center gap-4">
+    <div className="text-emerald-400">✓</div>
+    <div className="text-white">SECURE CHECKOUT</div>
+  </div>
+</div>        </div>
       </div>
       
       <AnimatePresence>
@@ -1156,35 +1178,36 @@ const CartPage: React.FC = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between">
                     <div className="font-medium text-xl text-white pr-6">{item.name}</div>
-                    <div className="font-mono text-right text-lg whitespace-nowrap"> ${(item.price * item.quantity).toFixed(0)}</div>
+                    <div className="font-mono text-right text-white text-lg whitespace-nowrap"> ${(item.price * item.quantity).toFixed(0)}</div>
                   </div>
                   <div className="text-xs text-zinc-400 mt-1">{item.category}</div>
                   
-                  <div className="flex items-center justify-between mt-6">
-                    <div className="flex items-center border border-zinc-700 rounded-2xl">
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white active:bg-zinc-800 rounded-l-2xl"
-                      >
-                        <Minus className="w-3.5 h-3.5" />
-                      </button>
-                      <div className="px-6 font-mono text-sm tabular-nums">{item.quantity}</div>
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white active:bg-zinc-800 rounded-r-2xl"
-                      >
-                        <Plus className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                    
-                    <button 
-                      onClick={() => removeFromCart(item.id)}
-                      className="flex items-center gap-2 text-xs text-rose-400 hover:text-rose-500"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" /> REMOVE
-                    </button>
-                  </div>
-                </div>
+<div className="flex flex-wrap items-center justify-between gap-4 mt-6">
+  {/* Quantity Selector */}
+  <div className="flex items-center border border-zinc-700 rounded-2xl shrink-0">
+    <button 
+      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+      className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white active:bg-zinc-800 rounded-l-2xl"
+    >
+      <Minus className="w-3.5 h-3.5" />
+    </button>
+    <div className="px-6 font-mono text-sm   tabular-nums text-white">{item.quantity}</div>
+    <button 
+      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+      className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white active:bg-zinc-800  text-white rounded-r-2xl"
+    >
+      <Plus className="w-3.5 h-3.5" />
+    </button>
+  </div>
+  
+  {/* Remove Button */}
+  <button 
+    onClick={() => removeFromCart(item.id)}
+    className="flex items-center gap-2 text-xs text-rose-400 hover:text-rose-500 shrink-0 uppercase font-medium"
+  >
+    <Trash2 className="w-3.5 h-3.5" /> REMOVE
+  </button>
+</div>                </div>
               </div>
             ))}
           </div>
@@ -1221,106 +1244,105 @@ const CartPage: React.FC = () => {
       </div>
 
       {/* CHECKOUT MODAL */}
-      <AnimatePresence>
-        {showCheckout && (
-          <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-[200] p-4">
-            <motion.div 
-              initial={{ scale: 0.88, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.88, opacity: 0 }}
-              className="bg-zinc-900 w-full max-w-lg rounded-3xl overflow-hidden"
-            >
-              {!orderSuccess ? (
-                <>
-                  <div className="px-8 pt-8 pb-4">
-                    <div className="flex justify-between items-center mb-8">
-                      <h3 className="font-semibold text-3xl">Checkout</h3>
-                      <button onClick={() => setShowCheckout(false)} className="text-zinc-400">
-                        <X />
-                      </button>
-                    </div>
-                    
-                    <div className="space-y-8">
-                      <div>
-                        <label className="block text-xs text-zinc-400 mb-3">DELIVERY ADDRESS</label>
-                        <input 
-                          type="text" 
-                          placeholder="123 Future Lane" 
-                          value={formData.address}
-                          onChange={(e) => setFormData({...formData, address: e.target.value})}
-                          className="bg-black border border-zinc-700 w-full rounded-2xl px-6 py-4 text-white placeholder:text-zinc-600"
-                        />
-                        <input 
-                          type="text" 
-                          placeholder="San Francisco, CA" 
-                          value={formData.city}
-                          onChange={(e) => setFormData({...formData, city: e.target.value})}
-                          className="mt-3 bg-black border border-zinc-700 w-full rounded-2xl px-6 py-4 text-white placeholder:text-zinc-600"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="block text-xs text-zinc-400 mb-3">PAYMENT INFORMATION</label>
-                        <div className="bg-black border border-zinc-700 rounded-2xl p-6 space-y-4">
-                          <input 
-                            type="text" 
-                            placeholder="4242 4242 4242 4242" 
-                            value={formData.cardNumber}
-                            onChange={(e) => setFormData({...formData, cardNumber: e.target.value})}
-                            className="bg-transparent w-full outline-none text-white placeholder:text-zinc-600 text-lg font-light"
-                          />
-                          <div className="grid grid-cols-2 gap-4">
-                            <input 
-                              type="text" 
-                              placeholder="05 / 28" 
-                              value={formData.expiry}
-                              onChange={(e) => setFormData({...formData, expiry: e.target.value})}
-                              className="bg-transparent w-full outline-none text-white placeholder:text-zinc-600"
-                            />
-                            <input 
-                              type="text" 
-                              placeholder="424" 
-                              value={formData.cvv}
-                              onChange={(e) => setFormData({...formData, cvv: e.target.value})}
-                              className="bg-transparent w-full outline-none text-white placeholder:text-zinc-600"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-black px-8 py-6 flex items-center justify-between border-t border-zinc-800">
-                    <div>
-                      <div className="text-xs text-zinc-400">TOTAL DUE TODAY</div>
-                      <div className="text-3xl font-semibold text-white">${getTotalPrice()}</div>
-                    </div>
-                    <button 
-                      onClick={completeOrder}
-                      className="px-14 py-4 bg-white text-black font-semibold rounded-2xl"
-                    >
-                      PAY SECURELY
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="px-12 py-16 text-center">
-                  <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1.6 }}
-                    className="mx-auto w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mb-8"
-                  >
-                    <CheckCircle className="w-12 h-12 text-black" />
-                  </motion.div>
-                  <div className="text-4xl font-medium text-white mb-3">Order Confirmed!</div>
-                  <p className="text-zinc-400">Thank you {user?.name}. Your gear is on the way.</p>
+<AnimatePresence>
+  {showCheckout && (
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-[200] p-4">
+      <motion.div 
+        initial={{ scale: 0.88, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.88, opacity: 0 }}
+        // max-w-md se modal thoda narrow aur clean ho jayega
+        className="bg-zinc-900 w-full max-w-md rounded-3xl overflow-hidden flex flex-col shadow-2xl"
+      >
+        {!orderSuccess ? (
+          <>
+            <div className="px-6 pt-6 pb-4 overflow-y-auto scrollbar-hide">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-semibold text-white text-2xl">Checkout</h3>
+                <button onClick={() => setShowCheckout(false)} className="text-zinc-500 hover:text-white transition-colors p-1">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-zinc-500 mb-2 font-medium">Delivery Address</label>
+                  <input 
+                    type="text" 
+                    placeholder="123 Future Lane" 
+                    value={formData.address}
+                    onChange={(e) => setFormData({...formData, address: e.target.value})}
+                    className="bg-black border border-zinc-800 w-full rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:border-zinc-500 outline-none transition-all"
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="San Francisco, CA" 
+                    value={formData.city}
+                    onChange={(e) => setFormData({...formData, city: e.target.value})}
+                    className="mt-2 bg-black border border-zinc-800 w-full rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:border-zinc-500 outline-none transition-all"
+                  />
                 </div>
-              )}
+                
+                <div>
+                  <label className="block text-[10px] uppercase tracking-wider text-zinc-500 mb-2 font-medium">Payment Information</label>
+                  <div className="bg-black border border-zinc-800 rounded-xl p-4 space-y-3">
+                    <input 
+                      type="text" 
+                      placeholder="4242 4242 4242 4242" 
+                      value={formData.cardNumber}
+                      onChange={(e) => setFormData({...formData, cardNumber: e.target.value})}
+                      className="bg-transparent w-full outline-none text-white placeholder:text-zinc-700 text-base font-light tracking-widest"
+                    />
+                    <div className="grid grid-cols-2 gap-4 border-t border-zinc-900 pt-3">
+                      <input 
+                        type="text" 
+                        placeholder="MM / YY" 
+                        value={formData.expiry}
+                        onChange={(e) => setFormData({...formData, expiry: e.target.value})}
+                        className="bg-transparent w-full outline-none text-sm text-white placeholder:text-zinc-700"
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="CVC" 
+                        value={formData.cvv}
+                        onChange={(e) => setFormData({...formData, cvv: e.target.value})}
+                        className="bg-transparent w-full outline-none text-sm text-white placeholder:text-zinc-700"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-black px-6 py-5 flex items-center justify-between border-t border-zinc-800 mt-2">
+              <div>
+                <div className="text-[10px] text-zinc-500 uppercase tracking-tight">Total</div>
+                <div className="text-xl font-bold text-white">${getTotalPrice()}</div>
+              </div>
+              <button 
+                onClick={completeOrder}
+                className="px-8 py-3 bg-white text-black text-sm font-bold rounded-xl hover:bg-zinc-200 active:scale-95 transition-all"
+              >
+                PAY NOW
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="px-10 py-14 text-center">
+            <motion.div 
+              animate={{ scale: [0.5, 1.2, 1] }}
+              className="mx-auto w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mb-6"
+            >
+              <CheckCircle className="w-10 h-10 text-black" />
             </motion.div>
+            <div className="text-2xl font-bold text-white mb-2">Order Confirmed!</div>
+            <p className="text-sm text-zinc-500">Thank you {user?.name}. We're on it.</p>
           </div>
         )}
-      </AnimatePresence>
+      </motion.div>
     </div>
+  )}
+</AnimatePresence>   </div>
   );
 };
 
